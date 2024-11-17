@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ShoesForFeet</title>
+    <link rel="stylesheet" href="/css/site.css" />
+</head>
+<body>
+<header>
+    <h1>ShoesForFeet</h1>
+    <nav>
+        <a href="/">Home</a> |
+        <a href="/Product/List">Products</a> |
+        <a href="/User/Profile">User Profile</a>
+    </nav>
+</header>
+<main>
+    @RenderBody()
+</main>
+<footer>
+    <p>&copy; 2024 ShoesForFeet</p>
+</footer>
+
+@RenderSection("Scripts", required: false)
+</body>
+</html>

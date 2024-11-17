@@ -1,0 +1,11 @@
+@model IEnumerable<ShoesForFeet.Models.Product>
+
+<h1>Product List</h1>
+<ul>
+    @foreach (var product in Model)
+    {
+        <li>@product.Name (Size: @product.ShoeSize) - $@product.Price</li>
+    }
+</ul>
+
+<a href="/Product/Add">Add a New Product</a>
