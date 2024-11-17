@@ -15,12 +15,16 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\dylan\RiderProjects\shoesforfeet
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/dylan/RiderProjects/shoesforfeet/Views/Error/Error404.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3JcRXJyb3I0MDQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/dylan/RiderProjects/shoesforfeet/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/dylan/RiderProjects/shoesforfeet/Views/Home/_Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxfUHJpdmFjeS5jc2h0bWw=
+[C:/Users/dylan/RiderProjects/shoesforfeet/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/dylan/RiderProjects/shoesforfeet/Views/Product/Add.cshtml]

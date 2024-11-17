@@ -3,25 +3,26 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ShoesForFeet</title>
-    <link rel="stylesheet" href="/css/site.css" />
+    <title>@ViewData["Title"] - Shoes for Feet</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
 <header>
-    <h1>ShoesForFeet</h1>
-    <nav>
-        <a href="/">Home</a> |
-        <a href="/Product/List">Products</a> |
-        <a href="/User/Profile">User Profile</a>
-    </nav>
+    <!-- Header code here -->
 </header>
-<main>
+
+<div class="container mt-4">
     @RenderBody()
-</main>
-<footer>
-    <p>&copy; 2024 ShoesForFeet</p>
+</div>
+
+<footer class="bg-dark text-white mt-4 p-3 text-center">
+    <p>&copy; 2024 ShoesForFeet. All Rights Reserved.</p>
 </footer>
 
-@RenderSection("Scripts", required: false)
+@RenderSection("Scripts", required: false)  <!-- Ensure this line is present -->
+    
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

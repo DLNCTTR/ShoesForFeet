@@ -16,5 +16,8 @@ namespace ShoesForFeet.Models
 
         [Range(0.01, 1000, ErrorMessage = "Price must be between $0.01 and $1000.")]
         public decimal Price { get; set; }
+        
+        public string Description { get; set; }
+        public string ImageUrl { get; set; } // New property to hold image UR
     }
 }

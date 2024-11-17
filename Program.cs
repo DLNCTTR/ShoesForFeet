@@ -28,10 +28,12 @@ app.UseEndpoints(endpoints =>
         pattern: "Product/{action=List}/{id?}",
         defaults: new { controller = "Product" });
 });
-app.UseStatusCodePagesWithReExecute("/Home/Error", "?statusCode={0}");
 
 
 app.UseAuthorization();
+
+app.UseStatusCodePagesWithReExecute("/Error/Error404");
+
 
 app.MapControllerRoute(
     name: "default",
