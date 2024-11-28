@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ShoesForFeet.Controllers
 {
@@ -9,11 +10,12 @@ namespace ShoesForFeet.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         public IActionResult Error(int statusCode)
         {
             if (statusCode == 404)
             {
-                return View("Error");
+                return View("Error404");
             }
             return View("Error");
         }

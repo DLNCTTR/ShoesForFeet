@@ -1,13 +1,22 @@
 ﻿@{
-    ViewData["Title"] = "Home";
+ViewData["Title"] = "Home";
 }
 
-<h1>Browse our selection and sign in</h1>
-<p>We provide all types of shoes for any occasion</p>
+<h1 class="mb-4">Browse our selection and sign in</h1>
+<p class="lead">We provide all types of shoes for any occasion.</p>
 
+ <!-- navigation buttons -->
 <ul>
     <li><a href="/Product/List">Product Page</a></li>
-    <li><a href="/User/Profile">User Page</a></li>
+    <li><a href="/User/Add">Create a User</a></li> 
 </ul>
 
-<test link="https://example.com"></test> <!-- Uses the custom tag helper -->
+<!-- Custom tag helper to replace <test> with <a> -->
+@addTagHelper *, ShoesForFeet
+
+<p>Cant find what you're looking for?: Visit our neighbours!</p>
+<a class="text-body" href="https://www.clothesforbodies.com/"> link - clothes for bodies</a>
+
+
+
+

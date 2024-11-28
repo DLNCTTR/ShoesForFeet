@@ -12,12 +12,16 @@ namespace ShoesForFeet.Models
 
         [Required(ErrorMessage = "Shoe size is required.")]
         [Range(1, 15, ErrorMessage = "Shoe size must be between 1 and 15.")]
-        public int ShoeSize { get; set; } // New property for shoe size
+        public int ShoeSize { get; set; }
 
-        [Range(0.01, 1000, ErrorMessage = "Price must be between $0.01 and $1000.")]
+        [Range(0.01, 1000, ErrorMessage = "Price must be between €0.01 and €1000.")]
         public decimal Price { get; set; }
-        
+
+        [StringLength(500, ErrorMessage = "Description cannot exceed 500 characters.")]
         public string Description { get; set; }
-        public string ImageUrl { get; set; } // New property to hold image UR
+
+        [Required(ErrorMessage = "Image URL is required.")]
+        public string ImageUrl { get; set; }
     }
 }
+    
