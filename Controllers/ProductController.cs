@@ -31,17 +31,36 @@ namespace ShoesForFeet.Controllers
         [AllowAnonymous]
         public JsonResult Search(string query)
         {
-            var products = _context.Products.AsQueryable();
-
-            if (!string.IsNullOrWhiteSpace(query))
+            try
             {
-                products = products.Where(p =>
-                    p.Name.Contains(query, System.StringComparison.OrdinalIgnoreCase) ||
-                    p.Description.Contains(query, System.StringComparison.OrdinalIgnoreCase));
-            }
+                var products = _context.Products.AsQueryable();
 
-            return Json(products.ToList());
+                if (!string.IsNullOrWhiteSpace(query))
+                {
+                    products = products.Where(p =>
+                        p.Name.Contains(query, System.StringComparison.OrdinalIgnoreCase) ||
+                        p.Description.Contains(query, System.StringComparison.OrdinalIgnoreCase));
+                }
+
+                // Select only necessary fields to reduce payload
+                var productList = products.Select(p => new
+                {
+                    p.Id,
+                    p.Name,
+                    p.ShoeSize,
+                    p.Price,
+                    p.Description,
+                    p.ImageUrl
+                }).ToList();
+
+                return Json(productList);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }); // Return error details in JSON format
+            }
         }
+
 
         // Displays details of a specific product
         [HttpGet]

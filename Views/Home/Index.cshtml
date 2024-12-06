@@ -5,35 +5,33 @@ ViewData["Title"] = "Home";
 }
 
 <div class="container">
-    <!-- Best Sellers Section -->
-    <div class="best-sellers">
-        <h2>Best Sellers</h2>
-        <div class="row">
-            @foreach (var product in Model)
-            {
-            <div class="col-md-4 product">
-                <div class="card">
-                    <img src="@product.ImageUrl" alt="@product.Name" class="card-img-top" />
-                    <div class="card-body">
-                        <h5 class="card-title">@product.Name</h5>
-                        <p><strong>Price:</strong> $@product.Price</p>
-                        <p>@product.Description</p>
-                        <a href="/Product/Details/@product.Id" class="btn btn-primary">View Details</a>
-                    </div>
+    <h2>Best Sellers</h2>
+
+    @if (Model != null && Model.Any())
+    {
+    <div class="row">
+        @foreach (var product in Model)
+        {
+        <div class="col-md-4 product">
+            <div class="card">
+                <img src="@product.ImageUrl" alt="@product.Name" class="card-img-top" />
+                <div class="card-body">
+                    <h5 class="card-title">@product.Name</h5>
+                    <p><strong>Price:</strong> $@product.Price</p>
+                    <p>@product.Description</p>
+                    <a href="/Product/Details/@product.Id" class="btn btn-primary">View Details</a>
                 </div>
             </div>
-            }
         </div>
+        }
     </div>
+    }
+    else
+    {
+    <p>No products available at the moment. Please check back later!</p>
+    }
 </div>
-
-<!-- Neighbour Link Section -->
 <div class="container text-center my-4">
     <p>Can't find what you're looking for?: Visit our neighbours!</p>
     <a class="text-body" href="https://www.clothesforbodies.com/" target="_blank">Link - Clothes for Bodies</a>
 </div>
-
-<!-- Footer Section -->
-<footer class="bg-dark text-white p-3 text-center">
-    <p>&copy; 2024 ShoesForFeet.</p>
-</footer>
