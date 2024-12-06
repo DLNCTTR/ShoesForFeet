@@ -33,20 +33,30 @@ namespace ShoesForFeet.Controllers
         [HttpPost]
         [Route("Login")]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(User user)
+        public async Task<IActionResult> Login(string Name, string Password)
         {
-            var existingUser = _context.Users.FirstOrDefault(u => u.Name == user.Name && u.Password == user.Password);
+            if (string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Password))
+            {
+                ModelState.AddModelError("", "Both username and password are required.");
+                return View();
+            }
+
+            // Validate user credentials without hashing
+            var existingUser = _context.Users.FirstOrDefault(u => u.Name == Name && u.Password == Password);
             if (existingUser != null)
             {
+                // Create user claims
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, existingUser.Name),
                     new Claim(ClaimTypes.Role, existingUser.Role)
                 };
 
+                // Create claims identity and principal
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
 
+                // Sign in user
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
 
                 TempData["Message"] = "Login successful!";
@@ -54,7 +64,7 @@ namespace ShoesForFeet.Controllers
             }
 
             ModelState.AddModelError("", "Invalid username or password.");
-            return View(user);
+            return View();
         }
 
         [HttpGet]
@@ -72,14 +82,17 @@ namespace ShoesForFeet.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Check if username already exists
+                // Check if username is already taken
                 if (_context.Users.Any(u => u.Name == user.Name))
                 {
                     ModelState.AddModelError("", "Username already exists.");
                     return View(user);
                 }
 
-                // Save user to the database
+                // Assign default role and save password as plaintext
+                user.Role = "User";
+
+                // Add user to the database
                 _context.Users.Add(user);
                 _context.SaveChanges();
 
