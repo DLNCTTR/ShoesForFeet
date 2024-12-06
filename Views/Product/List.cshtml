@@ -25,7 +25,7 @@
             <div class="card-body">
                 <h5 class="card-title">@product.Name</h5>
                 <p class="card-text"><strong>Size:</strong> @product.ShoeSize</p>
-                <p class="card-text text-primary"><strong>Price: $@product.Price</strong></p>
+                <p class="card-text text-primary"><strong>Price: €@product.Price</strong></p>
                 <a href="/Product/Details/@product.Id" class="btn btn-primary">View Product Details</a>
             </div>
         </div>
@@ -39,7 +39,7 @@
     document.getElementById("searchBox").addEventListener("input", function () {
         const query = this.value.trim().toLowerCase();
 
-        fetch(`/Product/Search?query=${encodeURIComponent(query)}`)
+        fetch(`/Product/Search?query=€{encodeURIComponent(query)}`)
             .then(response => response.json())
             .then(data => {
                 const productList = document.getElementById("productList");
@@ -58,12 +58,12 @@
                     const productHtml = `
                             <div class="col-md-4 mb-4 product-item">
                                 <div class="card h-100">
-                                    <img src="${product.imageUrl}" class="card-img-top" alt="${product.name}" />
+                                    <img src="€{product.imageUrl}" class="card-img-top" alt="€{product.name}" />
                                     <div class="card-body">
-                                        <h5 class="card-title">${product.name}</h5>
-                                        <p class="card-text"><strong>Size:</strong> ${product.shoeSize}</p>
-                                        <p class="card-text text-primary"><strong>Price: $${product.price}</strong></p>
-                                        <a href="/Product/Details/${product.id}" class="btn btn-primary">View Product Details</a>
+                                        <h5 class="card-title">€{product.name}</h5>
+                                        <p class="card-text"><strong>Size:</strong> €{product.shoeSize}</p>
+                                        <p class="card-text text-primary"><strong>Price: €€{product.price}</strong></p>
+                                        <a href="/Product/Details/€{product.id}" class="btn btn-primary">View Product Details</a>
                                     </div>
                                 </div>
                             </div>

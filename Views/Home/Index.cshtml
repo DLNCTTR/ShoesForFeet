@@ -1,22 +1,39 @@
-﻿@{
+﻿@model IEnumerable<ShoesForFeet.Models.Product>
+
+@{
 ViewData["Title"] = "Home";
 }
 
-<h1 class="mb-4">Browse our selection and sign in</h1>
-<p class="lead">We provide all types of shoes for any occasion.</p>
+<div class="container">
+    <!-- Best Sellers Section -->
+    <div class="best-sellers">
+        <h2>Best Sellers</h2>
+        <div class="row">
+            @foreach (var product in Model)
+            {
+            <div class="col-md-4 product">
+                <div class="card">
+                    <img src="@product.ImageUrl" alt="@product.Name" class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">@product.Name</h5>
+                        <p><strong>Price:</strong> $@product.Price</p>
+                        <p>@product.Description</p>
+                        <a href="/Product/Details/@product.Id" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>
 
- <!-- navigation buttons -->
-<ul>
-    <li><a href="/Product/List">Product Page</a></li>
-    <li><a href="/User/Register" class="btn btn-primary">Create a User</a></li> 
-</ul>
+<!-- Neighbour Link Section -->
+<div class="container text-center my-4">
+    <p>Can't find what you're looking for?: Visit our neighbours!</p>
+    <a class="text-body" href="https://www.clothesforbodies.com/" target="_blank">Link - Clothes for Bodies</a>
+</div>
 
-<!-- Custom tag helper to replace <test> with <a> -->
-@addTagHelper *, ShoesForFeet
-
-<p>Cant find what you're looking for?: Visit our neighbours!</p>
-<a class="text-body" href="https://www.clothesforbodies.com/"> link - clothes for bodies</a>
-
-
-
-
+<!-- Footer Section -->
+<footer class="bg-dark text-white p-3 text-center">
+    <p>&copy; 2024 ShoesForFeet.</p>
+</footer>

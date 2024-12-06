@@ -1,7 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using ShoesForFeet.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using ShoesForFeet.Data;
+using ShoesForFeet.Models;
 using System.Linq;
 
 namespace ShoesForFeet.Controllers
@@ -67,10 +68,11 @@ namespace ShoesForFeet.Controllers
         // Handles the submission of the form to add a new product
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public IActionResult Add(Product product, Microsoft.AspNetCore.Http.IFormFile ImageFile)
+        public IActionResult Add(Product product, IFormFile? ImageFile)
         {
             if (ModelState.IsValid)
             {
+                // Handle file upload only if an image is provided
                 if (ImageFile != null && ImageFile.Length > 0)
                 {
                     var fileName = System.IO.Path.GetFileName(ImageFile.FileName);
@@ -82,10 +84,13 @@ namespace ShoesForFeet.Controllers
                     product.ImageUrl = $"/Images/Products/{fileName}";
                 }
 
+                // Save the product to the database
                 _context.Products.Add(product);
                 _context.SaveChanges();
-                return RedirectToAction("List");
+                TempData["Message"] = "Product added successfully!";
+                return RedirectToAction("Dashboard", "Admin");
             }
+
             return View(product);
         }
 
@@ -106,7 +111,7 @@ namespace ShoesForFeet.Controllers
         // Handles the form submission to update product details
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public IActionResult Edit(Product updatedProduct, Microsoft.AspNetCore.Http.IFormFile ImageFile)
+        public IActionResult Edit(Product updatedProduct, IFormFile? ImageFile)
         {
             var product = _context.Products.FirstOrDefault(p => p.Id == updatedProduct.Id);
             if (product == null)
@@ -134,7 +139,8 @@ namespace ShoesForFeet.Controllers
                 }
 
                 _context.SaveChanges();
-                return RedirectToAction("List");
+                TempData["Message"] = "Product updated successfully!";
+                return RedirectToAction("Dashboard", "Admin");
             }
             return View(updatedProduct);
         }

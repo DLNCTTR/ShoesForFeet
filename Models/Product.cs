@@ -26,10 +26,10 @@ namespace ShoesForFeet.Models
         public string Description { get; set; }
 
         // Image URL stored in the database, optional for edit scenarios
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
 
         // Not mapped to the database, used for file uploads
         [NotMapped]
-        public IFormFile ImageFile { get; set; }
+        public IFormFile? ImageFile { get; set; }
     }
 }

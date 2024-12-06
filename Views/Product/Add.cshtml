@@ -25,11 +25,11 @@
     </div>
 
     <!-- Image Upload Field -->
-    <div class="form-group mb-3">
-        <label for="ImageUrl">Product Image URL:</label>
-        <input id="ImageUrl" asp-for="ImageUrl" type="text" class="form-control" />
-        <span asp-validation-for="ImageUrl" class="text-danger"></span> <!-- Validation for Image Upload -->
+    <div>
+        <label>Upload Image (Optional):</label>
+        <input asp-for="ImageFile" type="file" />
     </div>
+
 
     <!-- Description Field -->
     <div class="form-group mb-3">

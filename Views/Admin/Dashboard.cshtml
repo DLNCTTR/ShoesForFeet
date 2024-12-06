@@ -2,13 +2,24 @@
 
 <h1 class="mb-4">Admin Dashboard</h1>
 
+<!-- Success Message -->
+@if (TempData["Message"] != null)
+{
+<div class="alert alert-success text-center">
+    @TempData["Message"]
+</div>
+}
+
+<!-- Add New Product Button -->
 <div class="mb-4">
     <a href="/Admin/Add" class="btn btn-success">Add New Product</a>
 </div>
 
-<table class="table table-striped">
+<!-- Product Table -->
+<table class="table table-striped table-responsive">
     <thead>
     <tr>
+        <th>Image</th>
         <th>Name</th>
         <th>Size</th>
         <th>Price</th>
@@ -20,12 +31,19 @@
     @foreach (var product in Model)
     {
     <tr>
+        <td>
+            <img src="@product.ImageUrl" alt="@product.Name" style="width: 100px; height: auto;" />
+        </td>
         <td>@product.Name</td>
         <td>@product.ShoeSize</td>
         <td>@product.Price</td>
         <td>@product.Description</td>
         <td>
-            <a href="/Product/Edit/@product.Id" class="btn btn-warning">Edit</a>
+            <a href="/Product/Edit/@product.Id" class="btn btn-warning btn-sm">Edit</a>
+            <form method="post" asp-action="Delete" asp-route-id="@product.Id" style="display: inline;"
+                  onsubmit="return confirm('Are you sure you want to delete this product?');">
+                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+            </form>
         </td>
     </tr>
     }

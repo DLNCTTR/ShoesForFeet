@@ -23,16 +23,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRGFzaGJvYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/dylan/RiderProjects/shoesforfeet-CA2/Views/Contact/Contact.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGFjdFxDb250YWN0LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/dylan/RiderProjects/shoesforfeet-CA2/Views/Error/ErrorPage.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3JcRXJyb3JQYWdlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/dylan/RiderProjects/shoesforfeet-CA2/Views/Home/Contact.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDb250YWN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dylan/RiderProjects/shoesforfeet-CA2/Views/Home/ContactError.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDb250YWN0RXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/dylan/RiderProjects/shoesforfeet-CA2/Views/Home/Index.cshtml]

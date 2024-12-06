@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "0IRS55wl+JJjecLc4sbzmhMJcTYSbrJp9pg9i6AHS8g=",
+  "Hash": "9sgSVsVcprsuvQGQ1y1PIGoiLc1rluOU/ieOLidd2tc=",
   "Source": "shoesforfeet",
   "BasePath": "_content/shoesforfeet",
   "Mode": "Default",
@@ -83,6 +83,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\Products\\DressShoes.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\dylan\\RiderProjects\\shoesforfeet-CA2\\wwwroot\\Images\\Products\\flats.jpg",
+      "SourceId": "shoesforfeet",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\dylan\\RiderProjects\\shoesforfeet-CA2\\wwwroot\\",
+      "BasePath": "_content/shoesforfeet",
+      "RelativePath": "Images/Products/flats.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\Products\\flats.jpg"
     },
     {
       "Identity": "C:\\Users\\dylan\\RiderProjects\\shoesforfeet-CA2\\wwwroot\\Images\\Products\\Runners.jpg",

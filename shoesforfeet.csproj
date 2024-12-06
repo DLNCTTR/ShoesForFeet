@@ -16,4 +16,9 @@
         </PackageReference>
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Views\Error\ErrorPage.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Contact\Contact.cshtml" />
+    </ItemGroup>
+
 </Project>

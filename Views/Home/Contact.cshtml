@@ -1,18 +1,20 @@
-@section Scripts {
-    <h2>Contact Us</h2>
-    <form>
-        <div class="form-group">
-            <label for="Name">Name</label>
-            <input id="Name" name="Name" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label for="Email">Email</label>
-            <input id="Email" name="Email" type="email" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label for="Message">Message</label>
-            <textarea id="Message" name="Message" class="form-control"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Send</button>
-    </form>
+@{
+ViewData["Title"] = "Contact Us";
 }
+
+<h1>Contact Us</h1>
+
+<div class="contact-message">
+    <p>Welcome! You are always welcome to contact us anytime during the following opening hours:</p>
+    <p><strong>Opening Hours:</strong> 23:58 to 00:00</p>
+</div>
+
+<!-- Contact Details -->
+<div class="contact-details">
+    <h3>Contact Information</h3>
+    <p><strong>Email:</strong> support@shoesforfeet.com</p>
+    <p><strong>Phone:</strong> +1-800-123-4567</p>
+
+
+<a href="/Home/ContactUsError" class="btn btn-danger mt-3">Check Support Availability</a>
+</div>

@@ -37,5 +37,10 @@ namespace ShoesForFeet.Controllers
             }
             return View("Error");
         }
+        public IActionResult ContactUsError()
+        {
+            return View("ContactError");
+        }
+
     }
 }
