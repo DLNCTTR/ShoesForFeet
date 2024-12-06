@@ -1,0 +1,23 @@
+@model ShoesForFeet.Models.User
+
+@{
+    ViewData["Title"] = "User Profile";
+}
+
+<h1>User Profile</h1>
+
+@if (Model != null)
+{
+    <!-- Display the user's details -->
+    <p><strong>User ID:</strong> @Model.Id</p>
+    <p><strong>User Name:</strong> @Model.Name</p>
+
+    <!-- Password is intentionally not displayed here for security reasons -->
+    <a href="/User/Edit/@Model.Id" class="btn btn-warning">Edit Profile</a>
+}
+
+<!-- Add and Edit buttons -->
+<div class="mt-4">
+    <a href="/User/Add" class="btn btn-success">Add New User</a>
+    <a href="/User/List" class="btn btn-primary">View All Users</a>
+</div>

@@ -1,0 +1,24 @@
+@model IEnumerable<ShoesForFeet.Models.User>
+
+<h1 class="mb-4">User Profiles</h1>
+
+<div class="row">
+    @foreach (var user in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <!-- Card for each user -->
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">User ID: @user.Id</h5>
+                    <p class="card-text"><strong>User Name:</strong> @user.Name</p>
+                    <!-- Edit button -->
+                    <a href="/User/Edit/@user.Id" class="btn btn-warning">Edit Profile</a>
+                </div>
+            </div>
+        </div>
+    }
+    }
+</div>
+
+<!-- Button to add a new user -->
+<a href="/User/Add" class="btn btn-success mt-4">Add a New User</a>

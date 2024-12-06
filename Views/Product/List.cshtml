@@ -1,0 +1,29 @@
+@model IEnumerable<ShoesForFeet.Models.Product>
+
+<h1 class="mb-4">Product List</h1>
+
+<div class="row">
+    @foreach (var product in Model)
+    {
+    <div class="col-md-4 mb-4">
+        <!-- Card container for each product -->
+        <div class="card h-100">
+            <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" />
+            <div class="card-body">
+                <h5 class="card-title">@product.Name</h5>
+
+                
+                <p class="card-text"><strong>Size:</strong> @product.ShoeSize</p>
+                <p class="card-text"><strong>Description:</strong> @product.Description</p>
+                <p class="card-text text-primary"><strong>Price: $@product.Price</strong></p>
+
+                <!-- Button to edit product details -->
+                <a href="/Product/Details/@product.Id" class="btn btn-warning">Edit Product</a>
+            </div>
+        </div>
+    </div>
+    }
+    }
+</div>
+
+<a href="/Product/Add" class="btn btn-success mt-4">Add a New Product</a>

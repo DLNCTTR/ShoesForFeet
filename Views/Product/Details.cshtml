@@ -1,0 +1,47 @@
+@model ShoesForFeet.Models.Product
+
+<h1 class="mb-4">Edit Product Details</h1>
+
+<form method="post" asp-action="Details" enctype="multipart/form-data">
+    // product name 
+    <div class="form-group mb-3">
+        <label for="Name">Product Name:</label>
+        <input id="Name" name="Name" value="@Model.Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    // shoe size 
+    <div class="form-group mb-3">
+        <label for="ShoeSize">Shoe Size:</label>
+        <input id="ShoeSize" name="ShoeSize" value="@Model.ShoeSize" type="number" class="form-control" />
+        <span asp-validation-for="ShoeSize" class="text-danger"></span>
+    </div>
+
+    // price 
+    <div class="form-group mb-3">
+        <label for="Price">Price:</label>
+        <input id="Price" name="Price" value="@Model.Price" type="number" step="0.01" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    //image URL
+    <div class="form-group mb-3">
+        <label for="ImageUrl">Image URL:</label>
+        <input id="ImageUrl" name="ImageUrl" value="@Model.ImageUrl" type="text" class="form-control" />
+        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+    </div>
+
+    // description
+    <div class="form-group mb-3">
+        <label for="Description">Description:</label>
+        <textarea id="Description" name="Description" rows="4" class="form-control">@Model.Description</textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    // Button 
+    <button type="submit" class="btn btn-primary">Update Product</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
