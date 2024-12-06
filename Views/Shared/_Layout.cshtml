@@ -16,11 +16,11 @@
         body {
             display: flex;
             flex-direction: column;
-            min-height: 100vh; /* Makes the body fill the viewport height */
+            min-height: 100vh;
         }
 
         main {
-            flex: 1; /* Allows the main content to expand and push the footer down */
+            flex: 1;
         }
     </style>
 </head>
@@ -35,6 +35,7 @@
             <a href="/Product/List" class="text-white mx-2">Products</a>
             @if (User.Identity.IsAuthenticated)
             {
+            <a href="/Home/Contact" class="text-white mx-2">Contact Us</a>
             @if (User.IsInRole("Admin"))
             {
             <a href="/Admin/Dashboard" class="text-white mx-2">Admin</a>
@@ -43,22 +44,28 @@
             }
             else
             {
-            <a href="/User/Login" class="text-white mx-2">Login</a>
-            <a href="/User/Register" class="text-white mx-2">Register</a>
+            <a href="/User/Login" class="text-white mx-2">Login/Register</a>
             }
         </nav>
-
     </div>
 </header>
 
+<!-- Success Message Section -->
+@if (TempData["Message"] != null)
+{
+<div class="alert alert-success text-center">
+    @TempData["Message"]
+</div>
+}
+
 <!-- Main Content Section -->
 <main class="container mt-4">
-    @RenderBody() <!-- Renders the content of the current view -->
+    @RenderBody()
 </main>
 
 <!-- Footer Section -->
 <footer class="bg-dark text-white p-3 text-center">
-    <p>&copy; 2024 ShoesForFeet.</p>
+    <p>&copy; 2024 ShoesForFeet. All rights reserved.</p>
 </footer>
 
 <!-- Optional Scripts Section for additional JavaScript -->
