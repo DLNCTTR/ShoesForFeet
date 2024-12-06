@@ -45,7 +45,21 @@ namespace ShoesForFeet.Controllers
         [AllowAnonymous]
         public IActionResult List()
         {
-            return View(_products); 
+            return View(_products);
+        }
+
+        // Displays details of a specific product
+        [HttpGet]
+        [Route("Product/Details/{id}")]
+        [AllowAnonymous]
+        public IActionResult Details(int id)
+        {
+            var product = _products.Find(p => p.Id == id); // Finds the product by ID
+            if (product == null)
+            {
+                return RedirectToAction("ErrorPage", "Error");
+            }
+            return View(product);
         }
 
         // Displays the form to add a new product
@@ -53,7 +67,7 @@ namespace ShoesForFeet.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Add()
         {
-            return View(); // Returns the Add form view
+            return View();
         }
 
         // Handles the submission of the form to add a new product
@@ -61,53 +75,50 @@ namespace ShoesForFeet.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Add(Product product)
         {
-            if (ModelState.IsValid) // Checks for validation errors
+            if (ModelState.IsValid)
             {
-                product.Id = _products.Count + 1; // Assigns a new unique ID
-                _products.Add(product); 
-                return RedirectToAction("List"); // Redirects to the List view
+                product.Id = _products.Count > 0 ? _products[^1].Id + 1 : 1; // Assigns a unique ID
+                _products.Add(product);
+                return RedirectToAction("List");
             }
-            return View(product); 
+            return View(product);
         }
 
-        // Displays the form to edit details of a specific product
+        // Displays the form to edit an existing product
         [HttpGet]
-        [Route("Product/Details/{id}")] // Attribute route for accessing product details
         [Authorize(Roles = "Admin")]
-        public IActionResult Details(int id)
+        [Route("Product/Edit/{id}")]
+        public IActionResult Edit(int id)
         {
-            var product = _products.Find(p => p.Id == id); // Finds the product by ID
-            if (product == null) // If no product is found, return a 404 page
-            {
-                return NotFound(); // Returns a 404 error page
-            }
-            return View(product); 
-        }
-
-        // Handles the submission of the form to update product details
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public IActionResult Details(Product updatedProduct)
-        {
-            var product = _products.Find(p => p.Id == updatedProduct.Id); // Finds the existing product
+            var product = _products.Find(p => p.Id == id);
             if (product == null)
             {
-                return NotFound(); // Returns a 404 error page if the product doesn't exist
+                return RedirectToAction("ErrorPage", "Error");
+            }
+            return View(product);
+        }
+
+        // Handles the form submission to update product details
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public IActionResult Edit(Product updatedProduct)
+        {
+            var product = _products.Find(p => p.Id == updatedProduct.Id);
+            if (product == null)
+            {
+                return RedirectToAction("ErrorPage", "Error");
             }
 
-            if (ModelState.IsValid) // Checks for validation errors
+            if (ModelState.IsValid)
             {
-                // Updates product properties
                 product.Name = updatedProduct.Name;
                 product.ShoeSize = updatedProduct.ShoeSize;
                 product.Price = updatedProduct.Price;
                 product.ImageUrl = updatedProduct.ImageUrl;
                 product.Description = updatedProduct.Description;
-
-                return RedirectToAction("List"); // Redirects to the List view after successful update
+                return RedirectToAction("List");
             }
-
-            return View(updatedProduct); // Re-displays the form with validation errors
+            return View(updatedProduct);
         }
 
         // Displays a list of special offers (products under a specific price)
@@ -115,8 +126,24 @@ namespace ShoesForFeet.Controllers
         [AllowAnonymous]
         public IActionResult Specials()
         {
-            var specials = _products.FindAll(p => p.Price < 60); // Filters products with a price below $60
-            return View(specials); 
+            var specials = _products.FindAll(p => p.Price < 60);
+            return View(specials);
+        }
+
+        // Search products by name or description
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Search(string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                return View(new List<Product>());
+            }
+
+            var results = _products.FindAll(p =>
+                p.Name.Contains(query, StringComparison.OrdinalIgnoreCase) ||
+                p.Description.Contains(query, StringComparison.OrdinalIgnoreCase));
+            return View(results);
         }
     }
 }

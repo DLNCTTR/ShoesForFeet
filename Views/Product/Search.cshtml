@@ -1,0 +1,12 @@
+@model IEnumerable<ShoesForFeet.Models.Product>
+
+<h2>Search Results</h2>
+<ul>
+    @foreach (var product in Model)
+    {
+        <li>
+            <a asp-action="Details" asp-route-id="@product.Id">@product.Name</a> - $@product.Price
+        </li>
+    }
+</ul>
+<a asp-action="List">Back to Products</a>
