@@ -1,10 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ShoesForFeet.Models;
 using ShoesForFeet.Data;
+using ShoesForFeet.Models;
 
-
-namespace ShoesForFeet.Controllers // Updated namespace
+namespace ShoesForFeet.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly ProductRepository _productRepository;
@@ -16,7 +17,7 @@ namespace ShoesForFeet.Controllers // Updated namespace
 
         public IActionResult Dashboard()
         {
-            var products = _productRepository.GetAllProducts(); // Updated method name
+            var products = _productRepository.GetAllProducts();
             return View(products);
         }
 

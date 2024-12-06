@@ -35,14 +35,19 @@
             <a href="/Product/List" class="text-white mx-2">Products</a>
             @if (User.Identity.IsAuthenticated)
             {
+            @if (User.IsInRole("Admin"))
+            {
+            <a href="/Admin/Dashboard" class="text-white mx-2">Admin</a>
+            }
             <a href="/User/Logout" class="text-white mx-2">Logout (@User.Identity.Name)</a>
             }
             else
             {
             <a href="/User/Login" class="text-white mx-2">Login</a>
-            }
+            <a href="/User/Register" class="text-white mx-2">Register</a>
             }
         </nav>
+
     </div>
 </header>
 

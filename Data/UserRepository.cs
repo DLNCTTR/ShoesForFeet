@@ -1,52 +1,27 @@
-using ShoesForFeet.Models;
-using System.Collections.Generic;
 using System.Linq;
+using ShoesForFeet.Data;
+using ShoesForFeet.Models;
 
-namespace ShoesForFeet.Data
+namespace ShoesForFeet.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository
     {
-        // Simulating a database with a static list
-        private static List<User> _users = new()
-        {
-            new User { Id = 1, Name = "Tom", Password = "1234" },
-            new User { Id = 2, Name = "JaneSmith", Password = "12345" }
-        };
+        private readonly ApplicationDbContext _context;
 
-        public IEnumerable<User> GetAllUsers()
+        public UserRepository(ApplicationDbContext context)
         {
-            return _users; // Return all users
+            _context = context;
         }
 
-        public User GetUserById(int id)
+        public User GetUserByName(string name)
         {
-            return _users.FirstOrDefault(u => u.Id == id); // Find user by ID
+            return _context.Users.FirstOrDefault(u => u.Name == name);
         }
 
         public void AddUser(User user)
         {
-            user.Id = _users.Count + 1; // Assign a new unique ID
-            _users.Add(user); // Add user to the list
-        }
-
-        public void UpdateUser(User user)
-        {
-            var existingUser = _users.FirstOrDefault(u => u.Id == user.Id);
-            if (existingUser != null)
-            {
-                // Update user details
-                existingUser.Name = user.Name;
-                existingUser.Password = user.Password;
-            }
-        }
-
-        public void DeleteUser(int id)
-        {
-            var user = _users.FirstOrDefault(u => u.Id == id);
-            if (user != null)
-            {
-                _users.Remove(user); // Remove user from the list
-            }
+            _context.Users.Add(user);
+            _context.SaveChanges();
         }
     }
 }
