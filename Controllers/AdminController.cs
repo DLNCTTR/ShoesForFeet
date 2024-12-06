@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using shoesforfeet.Data;
-using shoesforfeet.Models;
+using ShoesForFeet.Models;
+using ShoesForFeet.Data;
 
-namespace shoesforfeet.Controllers
+
+namespace ShoesForFeet.Controllers // Updated namespace
 {
     public class AdminController : Controller
     {
@@ -15,7 +16,7 @@ namespace shoesforfeet.Controllers
 
         public IActionResult Dashboard()
         {
-            var products = _productRepository.GetAllProducts();
+            var products = _productRepository.GetAllProducts(); // Updated method name
             return View(products);
         }
 
