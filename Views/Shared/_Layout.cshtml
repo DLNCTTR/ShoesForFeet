@@ -35,19 +35,25 @@
             <a href="/Product/List" class="text-white mx-2">Products</a>
             @if (User.Identity.IsAuthenticated)
             {
-            <a href="/Home/Contact" class="text-white mx-2">Contact Us</a>
-            @if (User.IsInRole("Admin"))
-            {
-            <a href="/Admin/Dashboard" class="text-white mx-2">Admin</a>
-            }
-            <a href="/User/Logout" class="text-white mx-2">Logout (@User.Identity.Name)</a>
+                <a href="/Home/Contact" class="text-white mx-2">Contact Us</a>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a href="/Admin/Dashboard" class="text-white mx-2">Admin</a>
+                }
+            <a href="/User/Logout"
+               class="text-white mx-2"
+               onclick="return confirm('Are you sure you want to sign out? All progress will be lost.')">
+                Logout (@User.Identity.Name)
+            </a>
             }
             else
             {
-            <a href="/User/Login" class="text-white mx-2">Login/Register</a>
+                <a href="/User/Login" class="text-white mx-2">Login/Register</a>
             }
         </nav>
     </div>
+    <p>Authenticated: @User.Identity.IsAuthenticated</p>
+
 </header>
 
 <!-- Success Message Section -->

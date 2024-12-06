@@ -107,3 +107,4 @@ C:\Users\dylan\RiderProjects\shoesforfeet-CA2\bin\Debug\net6.0\shoesforfeet.runt
 C:\Users\dylan\RiderProjects\shoesforfeet-CA2\bin\Debug\net6.0\shoesforfeet.pdb
 C:\Users\dylan\RiderProjects\shoesforfeet-CA2\obj\Debug\net6.0\shoesforfeet.genruntimeconfig.cache
 C:\Users\dylan\RiderProjects\shoesforfeet-CA2\obj\Debug\net6.0\ref\shoesforfeet.dll
+C:\Users\dylan\RiderProjects\shoesforfeet-CA2\bin\Debug\net6.0\System.Security.Permissions.dll
