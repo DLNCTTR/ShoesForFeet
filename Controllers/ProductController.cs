@@ -67,10 +67,21 @@ namespace ShoesForFeet.Controllers
         // Handles the submission of the form to add a new product
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public IActionResult Add(Product product)
+        public IActionResult Add(Product product, Microsoft.AspNetCore.Http.IFormFile ImageFile)
         {
             if (ModelState.IsValid)
             {
+                if (ImageFile != null && ImageFile.Length > 0)
+                {
+                    var fileName = System.IO.Path.GetFileName(ImageFile.FileName);
+                    var filePath = System.IO.Path.Combine("wwwroot/Images/Products", fileName);
+                    using (var stream = new System.IO.FileStream(filePath, System.IO.FileMode.Create))
+                    {
+                        ImageFile.CopyTo(stream);
+                    }
+                    product.ImageUrl = $"/Images/Products/{fileName}";
+                }
+
                 _context.Products.Add(product);
                 _context.SaveChanges();
                 return RedirectToAction("List");
@@ -95,7 +106,7 @@ namespace ShoesForFeet.Controllers
         // Handles the form submission to update product details
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public IActionResult Edit(Product updatedProduct)
+        public IActionResult Edit(Product updatedProduct, Microsoft.AspNetCore.Http.IFormFile ImageFile)
         {
             var product = _context.Products.FirstOrDefault(p => p.Id == updatedProduct.Id);
             if (product == null)
@@ -108,8 +119,19 @@ namespace ShoesForFeet.Controllers
                 product.Name = updatedProduct.Name;
                 product.ShoeSize = updatedProduct.ShoeSize;
                 product.Price = updatedProduct.Price;
-                product.ImageUrl = updatedProduct.ImageUrl;
                 product.Description = updatedProduct.Description;
+
+                // Handle optional image file upload
+                if (ImageFile != null && ImageFile.Length > 0)
+                {
+                    var fileName = System.IO.Path.GetFileName(ImageFile.FileName);
+                    var filePath = System.IO.Path.Combine("wwwroot/Images/Products", fileName);
+                    using (var stream = new System.IO.FileStream(filePath, System.IO.FileMode.Create))
+                    {
+                        ImageFile.CopyTo(stream);
+                    }
+                    product.ImageUrl = $"/Images/Products/{fileName}";
+                }
 
                 _context.SaveChanges();
                 return RedirectToAction("List");

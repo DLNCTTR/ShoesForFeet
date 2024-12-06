@@ -1,33 +1,33 @@
 @model IEnumerable<ShoesForFeet.Models.Product>
 
 <h1 class="mb-4">Admin Dashboard</h1>
-<div class="row">
-    <a href="/Product/Add" class="btn btn-success mb-3">Add New Product</a>
+
+<div class="mb-4">
+    <a href="/Admin/Add" class="btn btn-success">Add New Product</a>
 </div>
-<div class="row">
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Size</th>
-            <th>Price</th>
-            <th>Description</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var product in Model)
-        {
-            <tr>
-                <td>@product.Name</td>
-                <td>@product.ShoeSize</td>
-                <td>@product.Price</td>
-                <td>@product.Description</td>
-                <td>
-                    <a href="/Product/Details/@product.Id" class="btn btn-warning">Edit</a>
-                </td>
-            </tr>
-        }
-        </tbody>
-    </table>
-</div>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Size</th>
+        <th>Price</th>
+        <th>Description</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var product in Model)
+    {
+    <tr>
+        <td>@product.Name</td>
+        <td>@product.ShoeSize</td>
+        <td>@product.Price</td>
+        <td>@product.Description</td>
+        <td>
+            <a href="/Product/Edit/@product.Id" class="btn btn-warning">Edit</a>
+        </td>
+    </tr>
+    }
+    </tbody>
+</table>

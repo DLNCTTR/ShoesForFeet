@@ -2,25 +2,27 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShoesForFeet.Data;
 using ShoesForFeet.Models;
+using System.Linq;
 
 namespace ShoesForFeet.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
-        private readonly ProductRepository _productRepository;
+        private readonly ApplicationDbContext _context;
 
-        public AdminController(ProductRepository productRepository)
+        public AdminController(ApplicationDbContext context)
         {
-            _productRepository = productRepository;
+            _context = context;
         }
 
         public IActionResult Dashboard()
         {
-            var products = _productRepository.GetAllProducts();
+            var products = _context.Products.ToList();
             return View(products);
         }
 
+        [HttpGet]
         public IActionResult Add()
         {
             return View();
@@ -31,7 +33,8 @@ namespace ShoesForFeet.Controllers
         {
             if (ModelState.IsValid)
             {
-                _productRepository.AddProduct(product);
+                _context.Products.Add(product);
+                _context.SaveChanges();
                 return RedirectToAction("Dashboard");
             }
             return View(product);
