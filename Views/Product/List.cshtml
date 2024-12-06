@@ -2,23 +2,31 @@
 
 <h1 class="mb-4">Product List</h1>
 
-<div class="row">
+<!-- Search Bar -->
+<div class="mb-4">
+    <input type="text" id="searchBox" class="form-control" placeholder="Search products..." />
+</div>
+
+<!-- Product List -->
+<div id="productList" class="row">
+    @if (!Model.Any())
+    {
+    <div class="col-12">
+        <p class="text-muted">No products available.</p>
+    </div>
+    }
+    else
+    {
     @foreach (var product in Model)
     {
-    <div class="col-md-4 mb-4">
-        <!-- Card container for each product -->
+    <div class="col-md-4 mb-4 product-item">
         <div class="card h-100">
             <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" />
             <div class="card-body">
                 <h5 class="card-title">@product.Name</h5>
-
-                
                 <p class="card-text"><strong>Size:</strong> @product.ShoeSize</p>
-                <p class="card-text"><strong>Description:</strong> @product.Description</p>
                 <p class="card-text text-primary"><strong>Price: $@product.Price</strong></p>
-
-                <!-- Button to edit product details -->
-                <a href="/Product/Details/@product.Id" class="btn btn-warning">Edit Product</a>
+                <a href="/Product/Details/@product.Id" class="btn btn-primary">View Product Details</a>
             </div>
         </div>
     </div>
@@ -26,4 +34,51 @@
     }
 </div>
 
-<a href="/Product/Add" class="btn btn-success mt-4">Add a New Product</a>
+@section Scripts {
+<script>
+    document.getElementById("searchBox").addEventListener("input", function () {
+        const query = this.value.trim().toLowerCase();
+
+        fetch(`/Product/Search?query=${encodeURIComponent(query)}`)
+            .then(response => response.json())
+            .then(data => {
+                const productList = document.getElementById("productList");
+                productList.innerHTML = "";
+
+                if (data.length === 0) {
+                    productList.innerHTML = `
+                            <div class="col-12">
+                                <p class="text-muted">No matching products found.</p>
+                            </div>
+                        `;
+                    return;
+                }
+
+                data.forEach(product => {
+                    const productHtml = `
+                            <div class="col-md-4 mb-4 product-item">
+                                <div class="card h-100">
+                                    <img src="${product.imageUrl}" class="card-img-top" alt="${product.name}" />
+                                    <div class="card-body">
+                                        <h5 class="card-title">${product.name}</h5>
+                                        <p class="card-text"><strong>Size:</strong> ${product.shoeSize}</p>
+                                        <p class="card-text text-primary"><strong>Price: $${product.price}</strong></p>
+                                        <a href="/Product/Details/${product.id}" class="btn btn-primary">View Product Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    productList.innerHTML += productHtml;
+                });
+            })
+            .catch(error => {
+                console.error("Error fetching search results:", error);
+                document.getElementById("productList").innerHTML = `
+                        <div class="col-12">
+                            <p class="text-danger">Error loading products. Please try again later.</p>
+                        </div>
+                    `;
+            });
+    });
+</script>
+}

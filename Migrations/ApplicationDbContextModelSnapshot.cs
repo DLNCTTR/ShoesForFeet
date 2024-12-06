@@ -45,35 +45,35 @@ namespace shoesforfeet.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products");
-                });
 
-            modelBuilder.Entity("ShoesForFeet.Models.Review", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Comment")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Rating")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ReviewerName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Reviews");
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Comfortable running shoes designed for performance.",
+                            ImageUrl = "/Images/Products/Runners.jpg",
+                            Name = "Running Shoes",
+                            Price = 79.99m,
+                            ShoeSize = 10
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Classy shoes for any event.",
+                            ImageUrl = "/Images/Products/DressShoes.jpg",
+                            Name = "Casual Sneakers",
+                            Price = 49.99m,
+                            ShoeSize = 9
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Work boots suitable for any terrain.",
+                            ImageUrl = "/Images/Products/Boots.jpg",
+                            Name = "Boots",
+                            Price = 79.99m,
+                            ShoeSize = 14
+                        });
                 });
 
             modelBuilder.Entity("ShoesForFeet.Models.User", b =>
@@ -100,22 +100,6 @@ namespace shoesforfeet.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("ShoesForFeet.Models.Review", b =>
-                {
-                    b.HasOne("ShoesForFeet.Models.Product", "Product")
-                        .WithMany("Reviews")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("ShoesForFeet.Models.Product", b =>
-                {
-                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }

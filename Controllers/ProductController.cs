@@ -1,51 +1,45 @@
 using Microsoft.AspNetCore.Mvc;
-using ShoesForFeet.Models;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
+using ShoesForFeet.Models;
+using ShoesForFeet.Data;
+using System.Linq;
 
 namespace ShoesForFeet.Controllers
 {
-    // Handles product-related operations like listing, adding, editing, and viewing details
     [Authorize]
     public class ProductController : Controller
     {
-        // Static list to simulate a database of products
-        private static List<Product> _products = new()
+        private readonly ApplicationDbContext _context;
+
+        // Constructor to inject the database context
+        public ProductController(ApplicationDbContext context)
         {
-            new Product
-            {
-                Id = 1,
-                Name = "Running Shoes",
-                ShoeSize = 10,
-                Price = 79.99m,
-                ImageUrl = "/Images/Products/Runners.jpg",
-                Description = "Comfortable running shoes designed for performance."
-            },
-            new Product
-            {
-                Id = 2,
-                Name = "Casual Sneakers",
-                ShoeSize = 9,
-                Price = 49.99m,
-                ImageUrl = "/Images/Products/DressShoes.jpg",
-                Description = "Classy shoes for any event."
-            },
-            new Product
-            {
-                Id = 3,
-                Name = "Boots",
-                ShoeSize = 14,
-                Price = 79.99m,
-                ImageUrl = "/Images/Products/Boots.jpg",
-                Description = "Work boots suitable for any terrain."
-            }
-        };
+            _context = context;
+        }
 
         // Displays a list of all products
         [AllowAnonymous]
         public IActionResult List()
         {
-            return View(_products);
+            var products = _context.Products.ToList();
+            return View(products);
+        }
+
+        // API endpoint to fetch search results dynamically
+        [HttpGet]
+        [AllowAnonymous]
+        public JsonResult Search(string query)
+        {
+            var products = _context.Products.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(query))
+            {
+                products = products.Where(p =>
+                    p.Name.Contains(query, System.StringComparison.OrdinalIgnoreCase) ||
+                    p.Description.Contains(query, System.StringComparison.OrdinalIgnoreCase));
+            }
+
+            return Json(products.ToList());
         }
 
         // Displays details of a specific product
@@ -54,7 +48,7 @@ namespace ShoesForFeet.Controllers
         [AllowAnonymous]
         public IActionResult Details(int id)
         {
-            var product = _products.Find(p => p.Id == id); // Finds the product by ID
+            var product = _context.Products.FirstOrDefault(p => p.Id == id);
             if (product == null)
             {
                 return RedirectToAction("ErrorPage", "Error");
@@ -77,8 +71,8 @@ namespace ShoesForFeet.Controllers
         {
             if (ModelState.IsValid)
             {
-                product.Id = _products.Count > 0 ? _products[^1].Id + 1 : 1; // Assigns a unique ID
-                _products.Add(product);
+                _context.Products.Add(product);
+                _context.SaveChanges();
                 return RedirectToAction("List");
             }
             return View(product);
@@ -90,7 +84,7 @@ namespace ShoesForFeet.Controllers
         [Route("Product/Edit/{id}")]
         public IActionResult Edit(int id)
         {
-            var product = _products.Find(p => p.Id == id);
+            var product = _context.Products.FirstOrDefault(p => p.Id == id);
             if (product == null)
             {
                 return RedirectToAction("ErrorPage", "Error");
@@ -103,7 +97,7 @@ namespace ShoesForFeet.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Edit(Product updatedProduct)
         {
-            var product = _products.Find(p => p.Id == updatedProduct.Id);
+            var product = _context.Products.FirstOrDefault(p => p.Id == updatedProduct.Id);
             if (product == null)
             {
                 return RedirectToAction("ErrorPage", "Error");
@@ -116,6 +110,8 @@ namespace ShoesForFeet.Controllers
                 product.Price = updatedProduct.Price;
                 product.ImageUrl = updatedProduct.ImageUrl;
                 product.Description = updatedProduct.Description;
+
+                _context.SaveChanges();
                 return RedirectToAction("List");
             }
             return View(updatedProduct);
@@ -126,24 +122,8 @@ namespace ShoesForFeet.Controllers
         [AllowAnonymous]
         public IActionResult Specials()
         {
-            var specials = _products.FindAll(p => p.Price < 60);
+            var specials = _context.Products.Where(p => p.Price < 60).ToList();
             return View(specials);
-        }
-
-        // Search products by name or description
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult Search(string query)
-        {
-            if (string.IsNullOrWhiteSpace(query))
-            {
-                return View(new List<Product>());
-            }
-
-            var results = _products.FindAll(p =>
-                p.Name.Contains(query, StringComparison.OrdinalIgnoreCase) ||
-                p.Description.Contains(query, StringComparison.OrdinalIgnoreCase));
-            return View(results);
         }
     }
 }
